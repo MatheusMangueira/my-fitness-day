@@ -1,14 +1,57 @@
-import * as S from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { SectionList } from "react-native";
 import { ButtonLarge } from "../../components/ButtonLarge/ButtonLarge";
 import { Header } from "../../components/Header/Header";
-import { PercentageCard } from "../../components/PercentageCard/PercentageCard";
-import { SectionList, View } from "react-native";
-import { ListEmpty } from "../../components/ListEmpty/ListEmpty";
 import { MenuCart } from "../../components/MenuCard/MenuCard";
+import { PercentageCard } from "../../components/PercentageCard/PercentageCard";
+import { IMealProps } from "../../types";
+import * as S from "./styles";
+
+const data = [
+  {
+    title: "13/09/2021",
+    data: [
+      {
+        id: "1",
+        name: "X-tudo",
+        time: "12:00",
+        isActive: true,
+      },
+      {
+        id: "2",
+        name: "X-tudao",
+        time: "1:00",
+        isActive: false,
+      },
+    ],
+  },
+  {
+    title: "15/09/2021",
+    data: [
+      {
+        id: "1",
+        name: "X-tudo",
+        time: "12:00",
+        isActive: true,
+      },
+      {
+        id: "2",
+        name: "X-tudao",
+        time: "1:00",
+        isActive: false,
+      },
+    ],
+  },
+] as {
+  title: string;
+  data: IMealProps[];
+}[];
 
 export const HomePage = () => {
-  const handleGoSnack = (id: string) => {
-    console.log("go to snack", id);
+  const navigation = useNavigation();
+
+  const handleGoSnack = (data: IMealProps) => {
+    navigation.navigate("createNewDiet", { mode: "edit", data: data });
   };
 
   return (
@@ -24,30 +67,18 @@ export const HomePage = () => {
 
       <SectionList
         showsVerticalScrollIndicator={false}
-        sections={[
-          {
-            data: [
-              "item1",
-              "item2",
-              "item3",
-              "item4",
-              "item5",
-              "item6",
-              "item7",
-            ],
-          },
-        ]}
-        keyExtractor={(item) => item}
+        sections={data || []}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <MenuCart
             onPress={() => handleGoSnack(item)}
-            time="12:00"
-            title="X-tudo"
-            type="checked"
+            time={item.time}
+            title={item.name}
+            type={item.isActive ? "checked" : "unchecked"}
           />
         )}
         renderSectionHeader={(item) => (
-          <S.SectionTitle>12.08.22</S.SectionTitle>
+          <S.SectionTitle>{item.section.title}</S.SectionTitle>
         )}
       />
     </S.Container>

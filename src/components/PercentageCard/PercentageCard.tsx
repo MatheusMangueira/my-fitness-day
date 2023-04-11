@@ -1,4 +1,5 @@
 import * as S from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   type: "InDiet" | "OutDiet";
@@ -7,15 +8,17 @@ type Props = {
 };
 
 export const PercentageCard = ({ type, title, subTitle }: Props) => {
+  const navigation = useNavigation();
+
   const handleGoStatisticDiet = () => {
-    console.log("go to statistic diet");
+    navigation.navigate("generalStatistics", { home: "exemplo" });
   };
 
   return (
-    <S.Container type={type}>
+    <S.Container onPress={handleGoStatisticDiet} type={type}>
       <S.Title>{title}</S.Title>
       <S.subTitle>{subTitle}</S.subTitle>
-      <S.ContainerArrowIcon onPress={handleGoStatisticDiet}>
+      <S.ContainerArrowIcon>
         <S.ArrowIcon name="arrow-forward" />
       </S.ContainerArrowIcon>
     </S.Container>

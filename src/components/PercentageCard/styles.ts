@@ -7,7 +7,7 @@ type TypeProps = {
   type?: TypeCard;
 };
 
-export const Container = styled.View<TypeProps>`
+export const Container = styled.TouchableOpacity<TypeProps>`
   position: relative;
   flex-direction: column;
   justify-content: center;
@@ -35,7 +35,7 @@ export const subTitle = styled.Text`
   color: ${({ theme }) => theme.COLORS.GRAY_700};
 `;
 
-export const ContainerArrowIcon = styled.TouchableOpacity`
+export const ContainerArrowIcon = styled.View`
   position: absolute;
   right: 10px;
   top: 10px;

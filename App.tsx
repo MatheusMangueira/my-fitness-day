@@ -9,6 +9,8 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
+import { Routes } from "./src/routes";
+
 export default function App() {
   const [fontLoader] = useFonts({
     Roboto_400Regular,
@@ -22,7 +24,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontLoader ? <HomePage /> : <Loading />}
+      {fontLoader ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
