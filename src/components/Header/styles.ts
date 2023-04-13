@@ -6,6 +6,7 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: 16px;
 `;
 
 export const ConteinerLogoAndUser = styled.View`
@@ -29,8 +30,10 @@ export const BackButton = styled.TouchableOpacity``;
 
 export const BackIcon = styled(MaterialIcons).attrs(({ theme }) => ({
   color: theme.COLORS.GRAY_700,
-  size: 32,
-}))``;
+  size: 24,
+}))`
+  margin-left: 16px;
+`;
 
 export const ContainerHeaderifTitle = styled.View`
   position: relative;

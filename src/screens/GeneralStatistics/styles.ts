@@ -14,17 +14,6 @@ export const Container = styled(SafeAreaView)<typeContainerInOrOut>`
   flex-direction: column;
 `;
 
-export const ContainerIconToBack = styled.TouchableOpacity`
-  margin-left: 24px;
-  margin-top: 16px;
-  width: 24px;
-`;
-
-export const ArrowIcon = styled(MaterialIcons).attrs(({ theme }) => ({
-  color: theme.COLORS.GRAY_700,
-  size: 24,
-}))``;
-
 export const Title = styled.Text`
   text-align: center;
   margin-bottom: 8px;
@@ -64,18 +53,4 @@ export const ContarinerInOrOutDiet = styled.View`
   flex-direction: row;
   gap: 16px;
   margin-top: 16px;
-`;
-
-export const CardInDiet = styled.View`
-  background-color: ${({ theme }) => theme.COLORS.GREEN_MID};
-  border-radius: 8px;
-  flex: 1;
-  padding: 20px 16px;
-`;
-
-export const CardOutDiet = styled.View`
-  background-color: ${({ theme }) => theme.COLORS.RED_MID};
-  border-radius: 8px;
-  flex: 1;
-  padding: 20px 16px;
 `;

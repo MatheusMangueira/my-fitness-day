@@ -1,3 +1,4 @@
+import { Header } from "../../components/Header/Header";
 import { CardInOrOut } from "./components/CardInOrOut/CardInOrOut";
 import { CardStatisticsFull } from "./components/CardStatisticsFull/CardStatisticsFull";
 import * as S from "./styles";
@@ -28,9 +29,7 @@ export const GeneralStatistics = () => {
 
   return (
     <S.Container type="OutDiet">
-      <S.ContainerIconToBack onPress={handleNavigateToHome}>
-        <S.ArrowIcon name="arrow-back" />
-      </S.ContainerIconToBack>
+      <Header onPress={handleNavigateToHome} />
       <S.Title> 90,86% </S.Title>
       <S.subTitle>Das reifeições dentro da dieta</S.subTitle>
 

@@ -7,15 +7,19 @@ type Props = TouchableOpacityProps & {
 
   showLogo?: boolean;
   showTitleHeader?: boolean;
+  onPress?: () => void;
+  title?: string;
 };
 
 export const Header = ({
   showBackButton = true,
   showTitleHeader = true,
   showLogo = false,
+  title,
+  onPress,
 }: Props) => {
   const handleGoBack = () => {
-    console.log("go back");
+    onPress && onPress();
   };
 
   return (
@@ -31,7 +35,7 @@ export const Header = ({
           <S.BackButton onPress={handleGoBack}>
             <S.BackIcon name="arrow-back" />
           </S.BackButton>
-          {showTitleHeader && <S.Title>Text</S.Title>}
+          {showTitleHeader && <S.Title>{title}</S.Title>}
         </S.ContainerHeaderifTitle>
       )}
     </S.Container>
