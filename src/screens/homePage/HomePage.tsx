@@ -19,7 +19,7 @@ const data = [
       },
       {
         id: "2",
-        name: "X-tudao",
+        name: "Mac",
         time: "1:00",
         isActive: false,
       },
@@ -30,13 +30,13 @@ const data = [
     data: [
       {
         id: "1",
-        name: "X-tudo",
+        name: "BOB'S",
         time: "12:00",
         isActive: true,
       },
       {
         id: "2",
-        name: "X-tudao",
+        name: "hamburguer",
         time: "1:00",
         isActive: false,
       },

@@ -1,6 +1,7 @@
-import * as S from "./styles";
-import { TouchableOpacityProps, View } from "react-native";
+import { TouchableOpacityProps } from "react-native";
+import userImg from "../../assets/Ellipse.png";
 import logo from "../../assets/Logo.png";
+import * as S from "./styles";
 
 type Props = TouchableOpacityProps & {
   showBackButton?: boolean;
@@ -27,7 +28,7 @@ export const Header = ({
       {showLogo && (
         <S.ConteinerLogoAndUser>
           <S.Logo source={logo} />
-          <S.User source={logo} />
+          <S.User source={userImg} />
         </S.ConteinerLogoAndUser>
       )}
       {showBackButton && (

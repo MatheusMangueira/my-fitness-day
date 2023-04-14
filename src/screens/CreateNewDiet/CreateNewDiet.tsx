@@ -1,12 +1,13 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { IMealProps } from "../../types";
-import * as S from "./styles";
+import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { ButtonLarge } from "../../components/ButtonLarge/ButtonLarge";
 import { Header } from "../../components/Header/Header";
 import { Input } from "../../components/Input/Input";
-import { View } from "react-native";
+import { IFormProps, IMealProps } from "../../types";
 import { ButtonActive } from "./components/ButtonActive/ButtonActive";
-import { ButtonLarge } from "../../components/ButtonLarge/ButtonLarge";
-import { useState } from "react";
+import * as S from "./styles";
+import { formatDate } from "../../utils/formatDate";
 
 type IData = {
   mode: "create" | "edit";
@@ -14,25 +15,32 @@ type IData = {
 };
 
 export const CreateNewDiet = () => {
+  const navigate = useNavigation();
   const { params } = useRoute();
   const { data, mode } = params as IData;
   const [isActive, setIsActive] = useState(data.isActive);
-  const [NoActive, setNoActive] = useState(!data.isActive);
 
-  const navigate = useNavigation();
+  const { control, handleSubmit, setValue } = useForm<IFormProps>({
+    defaultValues: {
+      date: data.date || "",
+      name: data.name || "",
+      time: data.time || "",
+      isActive: data.isActive || false,
+      description: data.description || "",
+    },
+  });
 
   const handleGoBack = () => {
     navigate.navigate("home");
   };
 
-  const handleActiveButton = () => {
-    setIsActive(!isActive);
-    setNoActive(false);
+  const handleActiveButton = (state: boolean) => {
+    setIsActive(state);
+    setValue("isActive", state);
   };
 
-  const handleNoActiveButton = () => {
-    setNoActive(!NoActive);
-    setIsActive(false);
+  const handleClickCreateOrEditDiet = (data: IFormProps) => {
+    // TODO: create or edit diet
   };
 
   return (
@@ -43,36 +51,96 @@ export const CreateNewDiet = () => {
       />
 
       <S.ContainerInput>
-        <Input placeholder="Nome" title="Nome" />
-        <Input
-          textAlignVertical="top"
-          numberOfLines={5}
-          multiline={true}
-          placeholder="Escreva sua descrição"
-          title="Descrição"
+        <Controller
+          rules={{ required: true }}
+          name="name"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              onChangeText={onChange}
+              value={value}
+              placeholder="Nome"
+              title="Nome"
+            />
+          )}
+        />
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              onChangeText={onChange}
+              value={value}
+              textAlignVertical="top"
+              numberOfLines={5}
+              multiline={true}
+              placeholder="Escreva sua descrição"
+              title="Descrição"
+            />
+          )}
         />
         <S.ContainerDate>
-          <Input flex={1} placeholder="Data" title="Data" />
-          <Input flex={1} placeholder="Hora" title="Hora" />
+          <Controller
+            rules={{ required: true }}
+            name="date"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <Input
+                  onChangeText={onChange}
+                  value={formatDate(value)}
+                  flex={1}
+                  placeholder="Data"
+                  title="Data"
+                />
+              );
+            }}
+          />
+
+          <Controller
+            rules={{ required: true }}
+            name="time"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <Input
+                  onChangeText={onChange}
+                  value={value}
+                  flex={1}
+                  placeholder="Hora"
+                  title="Hora"
+                />
+              );
+            }}
+          />
         </S.ContainerDate>
 
         <S.SubTitleYesAndNo>Está dentro da dieta?</S.SubTitleYesAndNo>
         <S.ContainerButtonActive>
-          <ButtonActive
-            onPress={handleActiveButton}
-            title="SIm"
-            isActive={isActive}
-            color="GREEN"
-          />
-          <ButtonActive
-            onPress={handleNoActiveButton}
-            title="Não"
-            isActive={NoActive}
-            color="RED"
+          <Controller
+            name="isActive"
+            control={control}
+            render={({ field: { value } }) => (
+              <>
+                <ButtonActive
+                  onPress={() => handleActiveButton(true)}
+                  title="SIm"
+                  isActive={value}
+                  color="GREEN"
+                />
+                <ButtonActive
+                  onPress={() => handleActiveButton(false)}
+                  title="Não"
+                  isActive={!value}
+                  color="RED"
+                />
+              </>
+            )}
           />
         </S.ContainerButtonActive>
 
         <ButtonLarge
+          onPress={handleSubmit(handleClickCreateOrEditDiet)}
           title={mode === "edit" ? "Cadastrar refeição" : "Nova refeição"}
         />
       </S.ContainerInput>
